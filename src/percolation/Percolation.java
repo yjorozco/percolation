@@ -27,7 +27,7 @@ public class Percolation {
 	   return uf.connected(row, col);
    }  // is site (row, col) open?
    public boolean isFull(int row, int col){
-	   return true;
+	   return uf.connected(row, col);
 	   
    }  // is site (row, col) full?
    public int numberOfOpenSites() {

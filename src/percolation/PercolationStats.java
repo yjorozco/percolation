@@ -2,11 +2,16 @@ package percolation;
 
 public class PercolationStats {
 		
-
+	  private 
+	
 	   public PercolationStats(int n, int trials) throws Exception{
 		   super();
 		   if (n <= 0 || trials <= 0)
 			   throw new java.lang.IllegalArgumentException();
+		   
+		   
+		   
+		
 
 	   }    // perform trials independent experiments on an n-by-n grid
 	   public double mean(){
