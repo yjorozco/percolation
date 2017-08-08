@@ -71,6 +71,7 @@ public class PercolationVisualizer {
         StdDraw.enableDoubleBuffering();
 
         // repeatedly read in sites to open and draw resulting system
+        System.out.println(n);
         Percolation perc = new Percolation(n);
         draw(perc, n);
         StdDraw.show();
