@@ -27,15 +27,14 @@ public class Percolation {
 	   return uf.connected(row, col);
    }  // is site (row, col) open?
    public boolean isFull(int row, int col){
-	   return uf.connected(row, col);
-	   
+	   return uf.connected(row, col);	   
    }  // is site (row, col) full?
    public int numberOfOpenSites() {
 	   return counter;
    }       // number of open sites
-   public boolean percolates() {
-	   
-	   return (counter >= n);
+   public boolean percolates() {	   
+	  
+	   return (counter/(n*n) > 0.5);
    }             // does the system percolate?
 
    public static void main(String[] args) {

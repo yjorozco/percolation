@@ -2,15 +2,14 @@ package percolation;
 
 public class PercolationStats {
 		
-	  private 
+	  private Percolation percolation = null;
 	
 	   public PercolationStats(int n, int trials) throws Exception{
 		   super();
 		   if (n <= 0 || trials <= 0)
-			   throw new java.lang.IllegalArgumentException();
+			   throw new java.lang.IllegalArgumentException(); 
 		   
-		   
-		   
+		   percolation = new Percolation(n);
 		
 
 	   }    // perform trials independent experiments on an n-by-n grid
