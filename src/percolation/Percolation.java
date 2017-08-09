@@ -24,37 +24,38 @@ public class Percolation {
    }
    
    public void open(int row, int col) {		   
-	   System.out.println(row + " " + col);
+
 	   final int LEFT = (this.xyTo1D(row, col) - 1);
 	   final int RIGHT = (this.xyTo1D(row, col) + 1);
-	   final int UP = (this.xyTo1D(row, col) - n);
-	   final int DOWN = (this.xyTo1D(row, col) + n);
+	   final int UP = (this.xyTo1D(row-1, col));
+	   final int DOWN = (this.xyTo1D(row+1, col));
 	   final int VALUE = xyTo1D(row, col);
-	   System.out.println(VALUE);
-	   if(!isOpen(row, col)&&!isFull(row, col)){
-		   grid [row][col] = 1;  
+
+	   if(grid [row-1][col-1] == 0 && !isFull(row, col)){
+		   grid [row-1][col-1] = OPEN;  
 		   counter++;
 	   }
 	    
-	   if(LEFT > 0 && !isOpen(row, col) && !uf.connected(VALUE, LEFT)){
-		   uf.union(VALUE, LEFT);
+	   if(LEFT > 0 && isOpen(row, col) && !uf.connected(LEFT, VALUE)){
+		   uf.union(LEFT, VALUE);
 	   }
-	   if(RIGHT < n  && !isOpen(row, col) && !uf.connected(VALUE, RIGHT)){
-		   uf.union(VALUE, RIGHT);
+	   if(RIGHT < n  && isOpen(row, col) && !uf.connected(RIGHT, VALUE)){
+		   uf.union(RIGHT, VALUE);
 	   }
-	   if(UP > 0 && !isOpen(row, col) && !uf.connected(VALUE, UP)){
-		   uf.union(VALUE, UP);
+	   if(UP > 0 && isOpen(row, col) && !uf.connected(UP, VALUE)){
+		   uf.union( UP, VALUE);
 	   }
-	   if(DOWN < n  && !isOpen(row, col) && !uf.connected(VALUE, DOWN)){
-		   uf.union(VALUE, DOWN);
+	   if(DOWN < n  && isOpen(row, col) && !uf.connected(DOWN, VALUE)){
+		   uf.union(DOWN, VALUE);
 	   }	   
 
 	   int top = 0;
 	   
 	   while(top < n-1){		   
-		   if(uf.connected( top , VALUE))			   
-			   grid [row][col] = 2;
+		   if(isOpen(row, col) && uf.connected( top , VALUE))			   
+			   grid [row-1][col-1] = 2;
 		   top++;
+		   
 	   }
 	   
 
@@ -62,13 +63,13 @@ public class Percolation {
    }
    
    public boolean isOpen(int row, int col) {
-	   if(grid [row][col] == OPEN)
+	   if(grid [row-1][col-1] == OPEN)
 		   return true;
 	   return false;
    }
    
    public boolean isFull(int row, int col){	  
-	   if(grid [row][col] == FULL)
+	   if(grid [row-1][col-1] == FULL)
 		   return true;
 	   return false;	   
    }
@@ -89,4 +90,3 @@ public class Percolation {
 	   
    }  // test client (optional)
 }
-
