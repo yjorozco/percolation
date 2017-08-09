@@ -40,43 +40,25 @@ public class Percolation {
 		   uf.union(VALUE, 0);
 	       grid [row-1][col-1] = FULL;
 	   }
-	   if(row + 1 == n){
+	   if(row + 1 == n-1){
 		   uf.union(VALUE, n*n);
 		   grid [row-1][col-1] = FULL;
 	   }
 	    
 	   if(LEFT > 0 &&  (col - 1) > 0 && grid [row - 1][col - 2] >0){
 		   uf.union(VALUE, LEFT);
-
 	   }
 	   if(RIGHT < (n * n) && col <  n && grid [row - 1][col] >0){
 		   uf.union(VALUE, RIGHT);
-
 	   }
 	   if(UP > 0 && (row - 1) > 0 && grid [row - 2][col - 1] >0){
 		   uf.union(VALUE, UP);
-
 	   }
 
 	   if(DOWN < (n * n) && (row + 1) < n && grid [row + 2][col - 1] >0){
 		   uf.union(VALUE, DOWN);
-
 	   }   
-	   
-
-	   for(int y=0; y < n;  y++){
-		   for(int x=0; x < n; x++){
-			   if(xyTo1D(y, x +1) >= 0 && y - 1 > 0 && uf.connected(xyTo1D(y + 1, x + 1), xyTo1D(y, x +1)) && grid [y - 1][x] == FULL &&  grid [y][x] == OPEN)
-				   grid [y][x] = FULL;
-			   if(xyTo1D(y + 2, x) < n * n && y + 1  < n && uf.connected(xyTo1D(y + 1, x + 1), xyTo1D(y + 2, x)) && grid [y + 1][x] == FULL &&  grid [y][x] == OPEN )
-				   grid [y][x] = FULL;
-			   if(xyTo1D(y + 1, x + 2) < n * n && x + 1 < n && uf.connected(xyTo1D(y + 1, x + 1), xyTo1D(y + 1, x + 2)) && grid [y][x + 1] == FULL &&  grid [y][x] == OPEN)
-				   grid [y][x] = FULL;
-			   if(xyTo1D(y + 1, x) >= 0 && x - 1 > 0 && uf.connected(xyTo1D(y + 1 , x + 1), xyTo1D(y + 1, x)) && grid [y][x - 1] == FULL &&  grid [y][x] == OPEN)
-				   grid [y][x] = FULL;
-		   }
-	   }
-
+	   watchFull();
 	   
    }
    
@@ -88,6 +70,7 @@ public class Percolation {
    
    public boolean isFull(int row, int col){	  
 
+	   watchFull();
 	   if(grid [row-1][col-1] == FULL)
 		   return true;
 	   return false;	   
@@ -103,6 +86,25 @@ public class Percolation {
    }  
    private int xyTo1D(int row, int col){
 	   return ((col-1) + (row-1) * n);
+   }
+   
+   private void watchFull(){
+	   for(int y=0; y < n;  y++){
+		   for(int x=0; x < n; x++){
+			   if(xyTo1D(y, x +1) >= 0 && y - 1 > 0 && uf.connected(xyTo1D(y + 1, x + 1), xyTo1D(y, x +1)) && grid [y - 1][x] == FULL &&  grid [y][x] == OPEN){
+				   grid [y][x] = FULL;
+			   }			   
+			   if(xyTo1D(y + 2, x) < n * n && y + 1  < n && uf.connected(xyTo1D(y + 1, x + 1), xyTo1D(y + 2, x)) && grid [y + 1][x] == FULL &&  grid [y][x] == OPEN){
+				   grid [y][x] = FULL;
+			   }
+			   if(xyTo1D(y + 1, x + 2) < n * n && x + 1 < n && uf.connected(xyTo1D(y + 1, x + 1), xyTo1D(y + 1, x + 2)) && grid [y][x + 1] == FULL &&  grid [y][x] == OPEN){
+				   grid [y][x] = FULL;
+			   }
+			   if(xyTo1D(y + 1, x) >= 0 && x - 1 > 0 && uf.connected(xyTo1D(y + 1 , x + 1), xyTo1D(y + 1, x)) && grid [y][x - 1] == FULL &&  grid [y][x] == OPEN){
+				   grid [y][x] = FULL; 
+			   }				  
+		   }
+	   }
    }
    
    public static void main(String[] args) {
