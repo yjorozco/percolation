@@ -7,7 +7,6 @@ public class Percolation {
    private int counter = 0;
    private int n = 0;
    public static final int OPEN = 1;
-   public static final int FULL = 2;
    public static final int BLOCK = 0;
    
    public Percolation(int n) {
@@ -38,27 +37,25 @@ public class Percolation {
 	   
 	   if(row - 1 == 0){
 		   uf.union(VALUE, 0);
-	   }
+	   }	   
 	   
-	   
-	   if(LEFT > 0 &&  (col - 1) > 0 && grid [row - 1][col - 2] > 0){
+	   if(LEFT > 0 &&  (col - 1) > 0 && grid [row - 1][col - 2] > BLOCK){
 		   uf.union(VALUE, LEFT);
 		   
 	   }
-	   if(RIGHT < (n * n) && col <  n && grid [row - 1][col] > 0){
+	   if(RIGHT < (n * n) && col <  n && grid [row - 1][col] > BLOCK){
 		   uf.union(VALUE, RIGHT);
 		   
 	   }
-	   if(UP > 0 && (row - 1) > 0 && grid [row - 2][col - 1] > 0){
+	   if(UP > 0 && (row - 1) > 0 && grid [row - 2][col - 1] > BLOCK){
 		   uf.union(VALUE, UP);
 
 	   }
 
-	   if(DOWN < (n * n) && row < n && grid [row][col - 1] > 0){
+	   if(DOWN < (n * n) && row < n && grid [row][col - 1] > BLOCK){
 		   uf.union(VALUE, DOWN);
 
 	   }   
-
 
    }
    
